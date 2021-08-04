@@ -58,16 +58,6 @@ class Tree:
         return self.ops[self.data](self.left,self.right)
       
 
-  def postfix(self):
-    result = self.postfix_computer()
-    return self.unwrap_list(result)
-  def postfix_computer(self):
-    output = []
-    output.append(self.left.postfix()) if type(self.left) != int else output.append(self.left)
-    output.append(self.right.postfix()) if type(self.right) != int else output.append(self.right)
-    output.append(self.data)
-    return output
-
   def unwrap_list(self,li):
     for element in li:
       if type(element) is list:
@@ -76,28 +66,6 @@ class Tree:
           li.insert(index, element.pop())
         li.remove([])
     return li
-
-
-  def infix(self):
-    result = self.infix_computer()
-    # for element in result:
-    #     if type(element) is list:                        
-    #       result.insert(result.index(element), '(')
-    #       result.insert(result.index(element)+1, ')')
-    # print(result)
-    return result
-
-  def infix_computer(self):
-    output = []
-    output.append(self.left.infix_computer()) if type(self.left) != int else output.append(self.left)
-    output.append(self.data)
-    output.append(self.right.infix_computer()) if type(self.right) != int else output.append(self.right)
-
-    print(type(output[2]))
-    return output
-
-    
-    
 
 
 def printTree(tree):
@@ -128,11 +96,9 @@ def rpl_tree(exp):
   return s.pop()
 
 exptree = rpl_tree(rpl)
-# printTree(exptree)
+printTree(exptree)
 equation = Tree('+', 2, Tree('*',3,4))
 print(equation.evaluate())
-print(equation.infix())
-print(equation.postfix())
 
 def get_tree_height(tree):
   if not tree: 
